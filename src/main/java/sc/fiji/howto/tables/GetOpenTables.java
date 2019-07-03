@@ -1,4 +1,4 @@
-package net.imagej.howto.table;
+package sc.fiji.howto.tables;
 
 import net.imagej.ImageJ;
 import org.scijava.table.DefaultGenericTable;
@@ -24,7 +24,7 @@ public class GetOpenTables {
 		// list open tables NOT WORKING - ALTERNATIVE?
 		System.out.println(ij.object().getObjects(Table.class));
 
-		// list open table displays
+		// list open tables displays
 		List<TableDisplay> tableDisplays = ij.object().getObjects(TableDisplay.class);
 		System.out.println(tableDisplays);
 	}

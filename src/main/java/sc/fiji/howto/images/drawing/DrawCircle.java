@@ -1,11 +1,10 @@
-package net.imagej.howto.image;
+package sc.fiji.howto.images.drawing;
 
 import net.imagej.ImageJ;
 import net.imglib2.RandomAccess;
 import net.imglib2.algorithm.region.hypersphere.HyperSphere;
 import net.imglib2.img.Img;
 import net.imglib2.type.numeric.real.DoubleType;
-import net.imglib2.type.numeric.real.FloatType;
 
 public class DrawCircle {
 

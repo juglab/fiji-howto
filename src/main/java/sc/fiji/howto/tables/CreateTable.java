@@ -1,4 +1,4 @@
-package net.imagej.howto.table;
+package sc.fiji.howto.tables;
 
 import net.imagej.ImageJ;
 import org.scijava.table.DefaultGenericTable;
@@ -21,7 +21,7 @@ public class CreateTable {
 
 		//show table
 		ImageJ ij = new ImageJ();
-		ij.ui().show("table", table);
+		ij.ui().show("tables", table);
 
 		//print value in the first row of column "X"
 		System.out.println(table.get("X", 1));

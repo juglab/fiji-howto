@@ -1,4 +1,4 @@
-package net.imagej.howto.image;
+package sc.fiji.howto.images;
 
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
@@ -19,6 +19,8 @@ public class GetOpenImages {
 		// show images
 		ij.ui().show(img1);
 		ij.ui().show(img2);
+
+		//TODO this solution worked without legacy dependency, but sometimes throws errors since adding the legacy dependency
 
 		// get open images
 		List<Dataset> datasets = ij.dataset().getDatasets();
