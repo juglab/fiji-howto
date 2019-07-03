@@ -5,12 +5,12 @@ import org.scijava.util.POM;
 import java.util.List;
 import java.util.Optional;
 
-public class GetInformationFromPOM {
+public class GetVersionOfMavenArtifact {
 
-	public static void getVersionOfArtifact() {
+	public static void run() {
 
 		List<POM> poms = POM.getAllPOMs();
-		Optional<POM> imageJOpsPOM = poms.stream().filter(pom -> pom.getArtifactId().equalsIgnoreCase("imagej-ops")).findFirst();
+		Optional<POM> imageJOpsPOM = poms.stream().filter(pom -> pom.getArtifactId().equalsIgnoreCase("fiji-howto")).findFirst();
 		if(imageJOpsPOM.isPresent()) {
 			System.out.println(imageJOpsPOM.get().getVersion());
 		}
@@ -18,6 +18,6 @@ public class GetInformationFromPOM {
 	}
 
 	public static void main(String ... args) {
-		getVersionOfArtifact();
+		run();
 	}
 }

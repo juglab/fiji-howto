@@ -1,4 +1,4 @@
-package net.imagej.howto.io;
+package net.imagej.howto.image;
 
 import io.scif.img.IO;
 import net.imagej.ImageJ;
@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class OpenImage {
 
-	public static void openImage() throws IOException {
+	public static void run() throws IOException {
 
 		ImageJ ij = new ImageJ();
 		Img img = (Img) ij.io().open(Object.class.getResource("/blobs.png").getPath());
@@ -16,7 +16,7 @@ public class OpenImage {
 		System.out.println(img);
 	}
 
-	public static void openImageStatic() {
+	public static void runStatic() {
 
 		Img img = IO.openImgs(Object.class.getResource("/blobs.png").getPath()).get(0);
 
@@ -24,8 +24,8 @@ public class OpenImage {
 	}
 
 	public static void main() throws IOException {
-		openImage();
-		openImageStatic();
+		run();
+		runStatic();
 	}
 
 }
