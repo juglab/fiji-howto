@@ -21,7 +21,7 @@ public class GetOpenTables {
 		ij.ui().show("table1", table1);
 		ij.ui().show("table2", table2);
 
-		// list open tables
+		// list open tables NOT WORKING - ALTERNATIVE?
 		System.out.println(ij.object().getObjects(Table.class));
 
 		// list open table displays
