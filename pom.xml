@@ -110,10 +110,54 @@
 			<groupId>org.scijava</groupId>
 			<artifactId>scijava-plugins-io-table</artifactId>
 		</dependency>
+
+		<!-- TESTING -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- FOR GENERATING THE DOCUMENTATION -->
+		<dependency>
+			<groupId>com.github.javaparser</groupId>
+			<artifactId>javaparser-core</artifactId>
+			<version>3.14.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.4</version>
+		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>xml-doclet</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+						<configuration>
+							<doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
+							<additionalOptions>
+								<additionalparam>-d ${project.build.directory} -filename javadoc.xml</additionalparam>
+							</additionalOptions>
+							<useStandardDocletOptions>false</useStandardDocletOptions>
+							<docletArtifact>
+								<groupId>com.github.markusbernhardt</groupId>
+								<artifactId>xml-doclet</artifactId>
+								<version>1.0.5</version>
+							</docletArtifact>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

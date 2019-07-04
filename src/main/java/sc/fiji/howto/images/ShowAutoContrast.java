@@ -7,6 +7,9 @@ import net.imglib2.img.Img;
 
 import java.io.IOException;
 
+/**
+ * How to run auto-contrast on an open image
+ */
 public class ShowAutoContrast {
 
 	public static void run() throws IOException {

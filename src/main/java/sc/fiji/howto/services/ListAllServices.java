@@ -7,6 +7,9 @@ import org.scijava.service.Service;
 
 import java.util.List;
 
+/**
+ * How to list all available services
+ */
 public class ListAllServices {
 
 	public static void run() {

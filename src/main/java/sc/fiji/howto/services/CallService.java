@@ -4,6 +4,9 @@ import net.imagej.ImageJ;
 import org.scijava.Context;
 import org.scijava.io.IOService;
 
+/**
+ * How to call a service
+ */
 public class CallService {
 
 	public static void call() {

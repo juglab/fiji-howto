@@ -6,6 +6,9 @@ import net.imglib2.algorithm.region.hypersphere.HyperSphere;
 import net.imglib2.img.Img;
 import net.imglib2.type.numeric.real.DoubleType;
 
+/**
+ * How to draw a circle
+ */
 public class DrawCircle {
 
 	public static void run() {

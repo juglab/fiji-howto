@@ -9,6 +9,9 @@ import net.imglib2.type.numeric.IntegerType;
 
 import java.io.IOException;
 
+/**
+ * How to count cells / blobs in an image (2D)
+ */
 public class CountCells {
 
 	public static void run() throws IOException {

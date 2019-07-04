@@ -6,6 +6,9 @@ import net.imagej.ImageJ;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * How to get all open images
+ */
 public class GetOpenImages {
 
 	public static void run() throws IOException {

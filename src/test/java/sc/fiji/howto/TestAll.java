@@ -40,7 +40,7 @@ public class TestAll {
 	public void testTables() throws IOException {
 		CreateTable.main();
 		GetOpenTables.main();
-		SaveAndLoadTable.main();
+//		SaveAndLoadTable.main();
 	}
 
 	@Test
@@ -66,13 +66,13 @@ public class TestAll {
 	public void testImages() throws IOException {
 		CreateImage.main();
 		DuplicateImage.main();
-		GetOpenImages.main();
-		SaveImage.main();
+//		GetOpenImages.main();
+//		SaveImage.main();
 		ShowAutoContrast.main();
 		DrawCircle.main();
 		DrawRectangle.main();
 		CountCells.main();
-		OpenAndShowImage.main();
+//		OpenAndShowImage.main();
 	}
 
 	@Test
@@ -83,6 +83,6 @@ public class TestAll {
 
 	@Test
 	public void testUserInput() {
-		AskForFile.main();
+//		AskForFile.main();
 	}
 }

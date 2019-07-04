@@ -7,8 +7,14 @@ import net.imglib2.img.display.imagej.ImageJFunctions;
 
 import java.io.IOException;
 
+/**
+ * How to open and show an image
+ */
 public class OpenAndShowImage {
 
+	/**
+	 * .. from the ImageJ instance:
+	 */
 	public static void run() throws IOException {
 
 		ImageJ ij = new ImageJ();
@@ -20,6 +26,9 @@ public class OpenAndShowImage {
 		ij.ui().show(img);
 	}
 
+	/**
+	 * .. by using static methods:
+	 */
 	public static void runStatic() {
 
 		//TODO displays image, but throws this exception:

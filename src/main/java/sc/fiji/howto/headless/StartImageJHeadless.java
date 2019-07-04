@@ -2,6 +2,9 @@ package sc.fiji.howto.headless;
 
 import net.imagej.ImageJ;
 
+/**
+ * How to start ImageJ / Fiji in headless mode
+ */
 public class StartImageJHeadless {
 
 	public static void run() {

@@ -8,6 +8,9 @@ import org.scijava.table.TableDisplay;
 
 import java.util.List;
 
+/**
+ * How to get all open tables
+ */
 public class GetOpenTables {
 
 	public static void run() {

@@ -7,6 +7,9 @@ import org.scijava.table.GenericTable;
 import java.io.IOException;
 import java.nio.file.Files;
 
+/**
+ * How to save and load a table
+ */
 public class SaveAndLoadTable {
 
 	public static void run() throws IOException {

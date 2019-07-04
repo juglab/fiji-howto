@@ -5,6 +5,9 @@ import org.scijava.util.POM;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * How to get the version of a specific maven artifact in the current class loader
+ */
 public class GetVersionOfMavenArtifact {
 
 	public static void run() {
@@ -18,6 +21,9 @@ public class GetVersionOfMavenArtifact {
 
 	}
 
+	/**
+	 * .. by explicitly asking for the version tag: <code>project/version</code>. This can be used to query any other entries as well.
+	 */
 	public static void runWithPath() {
 
 		List<POM> poms = POM.getAllPOMs();

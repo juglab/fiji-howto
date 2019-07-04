@@ -1,0 +1,420 @@
+<html>
+    
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<title>How to do things in Fiji from Java</title>
+        
+<link href="style.css" rel="stylesheet">
+        
+<link href="prism.css" rel="stylesheet">
+    
+</head>
+    
+<body>
+        
+<script src="prism.js"></script>
+        
+<menu>
+        
+</menu>
+        
+<main>
+
+        
+<div>
+<h2>Displays</h2>
+<h3>How to display a warning</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+// TODO this looks the same as a plain message with legacy dependency
+ij.ui().showDialog("This is a warning", DialogPrompt.MessageType.WARNING_MESSAGE);
+</code>
+</pre>
+<h3>How to align windows to see all of them at once</h3>
+<h3>How to display general information in a popup</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+ij.ui().showDialog("Everything is fine", DialogPrompt.MessageType.INFORMATION_MESSAGE);
+</code>
+</pre>
+<h3>How to display an error</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+// TODO this looks the same as a plain message with legacy dependency
+ij.ui().showDialog("EXTERMINATE", DialogPrompt.MessageType.ERROR_MESSAGE);
+</code>
+</pre>
+</div>
+<div>
+<h2>Tables</h2>
+<h3>How to save and load a table</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+// create table
+GenericTable table = new DefaultGenericTable();
+table.appendColumn("X");
+table.appendColumn("Y");
+table.appendRow();
+table.set("X", 0, 10);
+table.set("Y", 0, 20);
+table.appendRow();
+table.set("X", 1, 30);
+table.set("Y", 1, 40);
+// create temporary path to save image to
+String dest = Files.createTempFile("table", ".csv").toString();
+System.out.println("Saving table to " + dest);
+// save table
+// TODO does not work if I don't include the scijava-plugins-io-table dependency
+// TODO with the scijava-plugins-io-table dependency it saves and loads, but still throws errors
+// TODO related forum post: https://forum.image.sc/t/can-you-save-a-defaultgenerictable-displayed-with-uiservice/12036/7
+ij.io().save(table, dest);
+// load and show saved image
+Object savedTable = ij.io().open(dest);
+ij.ui().show("saved table", savedTable);
+</code>
+</pre>
+<h3>How to get all open tables</h3>
+<pre>
+<code class="language-java">
+// create tables
+GenericTable table1 = new DefaultGenericTable();
+GenericTable table2 = new DefaultGenericTable();
+// show tables
+ImageJ ij = new ImageJ();
+ij.ui().show("table1", table1);
+ij.ui().show("table2", table2);
+// list open tables NOT WORKING - ALTERNATIVE?
+System.out.println(ij.object().getObjects(Table.class));
+// list open tables displays
+List&lt;TableDisplay&gt; tableDisplays = ij.object().getObjects(TableDisplay.class);
+System.out.println(tableDisplays);
+</code>
+</pre>
+<h3>How to create a table</h3>
+<pre>
+<code class="language-java">
+// create table
+GenericTable table = new DefaultGenericTable();
+table.appendColumn("X");
+table.appendColumn("Y");
+table.appendRow();
+table.set("X", 0, 10);
+table.set("Y", 0, 20);
+table.appendRow();
+table.set("X", 1, 30);
+table.set("Y", 1, 40);
+// show table
+ImageJ ij = new ImageJ();
+ij.ui().show("tables", table);
+// print value in the first row of column "X"
+System.out.println(table.get("X", 1));
+</code>
+</pre>
+</div>
+<div>
+<h2>App</h2>
+<h3>How to get the version of a specific maven artifact in the current class loader</h3>
+<pre>
+<code class="language-java">
+List&lt;POM&gt; poms = POM.getAllPOMs();
+Optional&lt;POM&gt; imageJOpsPOM = poms.stream().filter(pom -&gt; pom.getArtifactId().equalsIgnoreCase("imagej-ops")).findFirst();
+if (imageJOpsPOM.isPresent()) {
+    String version = imageJOpsPOM.get().getVersion();
+    System.out.println(version);
+}
+</code>
+</pre>
+<p>.. by explicitly asking for the version tag: &lt;code&gt;project/version&lt;/code&gt;. This can be used to query any other entries as well.</p>
+<pre>
+<code class="language-java">
+List&lt;POM&gt; poms = POM.getAllPOMs();
+POM imageJOpsPOM = null;
+for (POM pom : poms) {
+    if (pom.getArtifactId().equalsIgnoreCase("imagej-ops")) {
+        imageJOpsPOM = pom;
+        break;
+    }
+}
+if (imageJOpsPOM != null) {
+    String version = imageJOpsPOM.cdata("project/version");
+    System.out.println(version);
+}
+</code>
+</pre>
+<h3>How to get a bunch of useful information about your system and installation</h3>
+<p>.. using the SciJava command &lt;code&gt;SystemInformation&lt;/code&gt;</p>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+CommandModule module = ij.command().run(SystemInformation.class, true).get();
+String result = (String) module.getOutput("info");
+System.out.println(result);
+</code>
+</pre>
+<h3>How to get the current Fiji installation directory</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+File base = ij.app().getApp().getBaseDirectory();
+System.out.println(base.getAbsolutePath());
+</code>
+</pre>
+<h3>How to list all JARs in the current classpath</h3>
+<pre>
+<code class="language-java">
+ClassLoader cl = ClassLoader.getSystemClassLoader();
+for (URL url : ((URLClassLoader) cl).getURLs()) {
+    System.out.println(url.getPath());
+}
+</code>
+</pre>
+</div>
+<div>
+<h2>Overlays</h2>
+<h3>How to add an overlay to an image</h3>
+</div>
+<div>
+<h2>Headless</h2>
+<h3>How to start ImageJ / Fiji in headless mode</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+ij.ui().setHeadless(true);
+System.out.println("headless: " + ij.ui().isHeadless());
+</code>
+</pre>
+</div>
+<div>
+<h2>Userinput</h2>
+<h3>How to ask the user for a file</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+File chosenFile = ij.ui().chooseFile(ij.getApp().getBaseDirectory(), "");
+System.out.println(chosenFile.getAbsolutePath());
+</code>
+</pre>
+</div>
+<div>
+<h2>Images</h2>
+<h3>How to run auto-contrast on an open image</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+// open images
+Img img = (Img) ij.io().open(Object.class.getResource("/m51.tif").getPath());
+// display images
+ij.ui().show(img);
+// create copy and display it
+Img img2 = img.copy();
+ij.ui().show(img2);
+// run autocontrast on copy
+ij.command().run(AutoContrast.class, true);
+</code>
+</pre>
+<h3>How to create an image</h3>
+<h3>How to get all open images</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+// open images
+Object img1 = ij.io().open("http://samples.fiji.sc/blobs.png");
+Object img2 = ij.io().open("http://samples.fiji.sc/new-lenna.jpg");
+// show images
+ij.ui().show(img1);
+ij.ui().show(img2);
+// TODO this solution worked without legacy dependency, but sometimes throws errors since adding the legacy dependency
+// get open images
+List&lt;Dataset&gt; datasets = ij.dataset().getDatasets();
+// print their names
+String name1 = datasets.get(0).getName();
+String name2 = datasets.get(1).getName();
+System.out.println(name1);
+System.out.println(name2);
+</code>
+</pre>
+<h3>How to open and show an image</h3>
+<p>.. from the ImageJ instance:</p>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+// open image from local resource
+Img img = (Img) ij.io().open(Object.class.getResource("/blobs.png").getPath());
+// show image
+ij.ui().show(img);
+</code>
+</pre>
+<p>.. by using static methods:</p>
+<pre>
+<code class="language-java">
+// TODO displays image, but throws this exception:
+// Required service is missing: net.imagej.legacy.LegacyService
+// open image statically
+Img img = IO.openImgs(Object.class.getResource("/blobs.png").getPath()).get(0);
+// display image statically
+ImageJFunctions.show(img);
+</code>
+</pre>
+<h3>How to copy / duplicate an image</h3>
+<h3>How to save an image</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+ij.ui().showUI();
+// TODO why can I not save this image?
+// Img&lt;DoubleType&gt; img = ij.op().create().img(new long[]{20, 30});
+Img img = (Img) ij.io().open(Object.class.getResource("/blobs.png").getPath());
+// create temporary path to save image to
+String dest = Files.createTempFile("img", ".png").toString();
+System.out.println("Saving image to " + dest);
+// save image
+ij.io().save(img, dest);
+// load and show saved image
+Object savedImg = ij.io().open(dest);
+ij.ui().show("saved image", savedImg);
+</code>
+</pre>
+</div>
+<div>
+<h2>Images.drawing</h2>
+<h3>How to draw a circle</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+// create two images describing local shift
+Img&lt;DoubleType&gt; img = ij.op().create().img(new long[] { 256, 254 });
+RandomAccess&lt;DoubleType&gt; ra = img.randomAccess();
+ra.setPosition(new long[] { 70, 98 });
+HyperSphere&lt;DoubleType&gt; hyperSphere = new HyperSphere&lt;&gt;(img, ra, 30);
+for (DoubleType value : hyperSphere) value.set(25);
+ij.ui().show(img);
+</code>
+</pre>
+<h3>How to draw a rectangle</h3>
+</div>
+<div>
+<h2>Images.processing</h2>
+<h3>How to count cells / blobs in an image (2D)</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+// load image
+Img img = (Img) ij.io().open(Object.class.getResource("/blobs.png").getPath());
+// blur image
+Img blurredImg = (Img) ij.op().filter().gauss(img, 3);
+// threshold image
+Img segmentedImg = (Img) ij.op().threshold().otsu(blurredImg);
+// calculate connected components
+ImgLabeling cca = ij.op().labeling().cca(segmentedImg, ConnectedComponents.StructuringElement.FOUR_CONNECTED);
+// show result
+ij.ui().show(cca.getIndexImg());
+// get count of connected components
+LabelRegions&lt;IntegerType&gt; regions = new LabelRegions(cca);
+int cells = regions.getExistingLabels().size();
+// print result
+System.out.println("Counted " + cells + " cells.");
+</code>
+</pre>
+</div>
+<div>
+<h2>Services</h2>
+<h3>How to list all available services</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+List&lt;PluginInfo&lt;Service&gt;&gt; services = ij.plugin().getPluginsOfType(Service.class);
+for (PluginInfo service : services) {
+    System.out.println(service.getPluginClass());
+}
+</code>
+</pre>
+<h3>How to call a service</h3>
+<pre>
+<code class="language-java">
+// get an IOService instance
+ImageJ ij = new ImageJ();
+IOService io = ij.io();
+// print the name of the class implementing the IOService
+System.out.println(io.getClass().getName());
+</code>
+</pre>
+<pre>
+<code class="language-java">
+// get an IOService instance
+Context context = new Context(IOService.class);
+IOService io = context.getService(IOService.class);
+// print the name of the class implementing the IOService
+System.out.println(io.getClass().getName());
+</code>
+</pre>
+</div>
+<div>
+<h2>Extensions</h2>
+<h3>How to run a command</h3>
+<p>.. this will run the Command in a new Thread:</p>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+ij.ui().showUI();
+ij.command().run(ExampleCommand.class, true);
+</code>
+</pre>
+<p>.. this is how you can attach parameters to the Command:</p>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+ij.ui().showUI();
+ij.command().run(ExampleCommand.class, true, "name", "Ada");
+</code>
+</pre>
+<p>.. how to wait for the Command to finish:</p>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+ij.ui().showUI();
+ij.command().run(ExampleCommand.class, true, "name", "Ada").get();
+</code>
+</pre>
+<p>.. how to avoid pre- and postprocessing (his will prevent the popup to open which asks the user for missing input parameters, this will also prevent output parameters to be displayed automatically):</p>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+ij.command().run(ExampleCommand.class, false, "name", "Ada");
+</code>
+</pre>
+<h3>How to get the result of a command</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+CommandModule command = ij.command().run(ExampleCommand.class, true, "name", "Ada").get();
+Object output = command.getOutput("response");
+System.out.println(output);
+</code>
+</pre>
+<h3>ExampleCommand</h3>
+<pre>
+<code class="language-java">
+response = "I am " + name;
+</code>
+</pre>
+<h3>How to list all available commands</h3>
+<pre>
+<code class="language-java">
+ImageJ ij = new ImageJ();
+List&lt;CommandInfo&gt; commands = ij.command().getCommands();
+for (CommandInfo info : commands) {
+    System.out.println(info.getClassName());
+}
+</code>
+</pre>
+</div>
+</main>
+    
+</body>
+
+</html>

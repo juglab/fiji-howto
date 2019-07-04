@@ -5,8 +5,10 @@ import net.imglib2.img.Img;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.concurrent.ExecutionException;
 
+/**
+ * How to save an image
+ */
 public class SaveImage {
 
 	public static void run() throws IOException {

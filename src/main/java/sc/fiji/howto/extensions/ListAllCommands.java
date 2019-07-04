@@ -5,6 +5,9 @@ import org.scijava.command.CommandInfo;
 
 import java.util.List;
 
+/**
+ * How to list all available commands
+ */
 public class ListAllCommands {
 
 	public static void run() {

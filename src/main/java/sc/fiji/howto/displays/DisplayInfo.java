@@ -3,6 +3,9 @@ package sc.fiji.howto.displays;
 import net.imagej.ImageJ;
 import org.scijava.ui.DialogPrompt;
 
+/**
+ * How to display general information in a popup
+ */
 public class DisplayInfo {
 
 	public static void run() {

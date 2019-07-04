@@ -3,6 +3,9 @@ package sc.fiji.howto.app;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+/**
+ * How to list all JARs in the current classpath
+ */
 public class GetJARsInClassPath {
 
 	public static void run() {

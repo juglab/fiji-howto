@@ -4,6 +4,9 @@ import net.imagej.ImageJ;
 
 import java.io.File;
 
+/**
+ *  How to get the current Fiji installation directory
+ */
 public class GetFijiDirectory {
 
 	public static void run() {

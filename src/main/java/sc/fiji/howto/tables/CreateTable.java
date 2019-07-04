@@ -4,6 +4,9 @@ import net.imagej.ImageJ;
 import org.scijava.table.DefaultGenericTable;
 import org.scijava.table.GenericTable;
 
+/**
+ * How to create a table
+ */
 public class CreateTable {
 
 	public static void run() {

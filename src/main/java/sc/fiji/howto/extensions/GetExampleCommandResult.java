@@ -5,6 +5,9 @@ import org.scijava.command.CommandModule;
 
 import java.util.concurrent.ExecutionException;
 
+/**
+ * How to get the result of a command
+ */
 public class GetExampleCommandResult {
 
 	public static void run() throws ExecutionException, InterruptedException {
